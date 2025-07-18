@@ -4,10 +4,27 @@
 class Time:
     """Simple object type for time of the day."""
 
-    def __init__(self, hour=12, minute=0, second=0):
+    def __init__(self, hour=0, minute=0, second=0):
         self.hour = hour
         self.minute = minute
         self.second = second
+
+    def __str__(self):
+        '''return a string representation for the object self'''
+        return "{:02d}:{:02d}:{:02d}".format(self.hour, self.minute, self.second)
+
+    def __add__(self, other):
+        total_seconds = self.time_to_sec() + other.time_to_sec()
+        return sec_to_time(total_seconds)
+
+    def print_time(self):
+        '''print the time represented by self'''
+        print(self.__str__())
+
+
+    def __repr__(self):
+        '''return a string representation using . instead of :'''
+        return f'{self.hour:02d}.{self.min:02d}.{self.sec:02d}'
 
     def format_time(self):
         return f'{self.hour:02d}:{self.minute:02d}:{self.second:02d}'
@@ -39,4 +56,3 @@ def sec_to_time(seconds):
     minutes, time.second = divmod(seconds, 60)
     time.hour, time.minute = divmod(minutes, 60)
     return time
-
